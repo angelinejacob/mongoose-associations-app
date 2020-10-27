@@ -1,0 +1,8 @@
+<h1>All Albums</h1>
+<ul>
+    <% for( let index = 0; index < albums.length; index++ ) { %>
+        <li> <a href="albums/<%= albums[index].id %>"> <%= albums[index].title %>  </a></li>
+    <% } %>
+</ul>
+<a href="/albums/new">Add New Album</a>
+ 
