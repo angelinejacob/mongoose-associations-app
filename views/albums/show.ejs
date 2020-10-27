@@ -1,0 +1,17 @@
+<h1><%= album.title %> </h1>
+<h4>Arist: <%= album.artist %> </h4>
+<h4>Year Released: <%= album.year %> </h4>
+<h4>Songs: </h4>
+<form action="/albums/<%= album.id %>/songs" method="POST">
+    <div class="form-group">
+        <label for="title"> Enter Song Name </label>
+        <input type="text" name="title" id="title" class="form-control">
+    </div>
+    <input type="submit" value="Add Song" class="btn btn-primary">
+</form>
+<ul>
+    <% for( let index = 0; index < album.songs.length; index++ ) { %>
+    <li>  <a href="/albums/<%= album.id %>/songs/<%= album.songs[index].id %>/edit"><%= album.songs[index].title %></a>   </li>
+    <% } %>
+</ul>
+ 
