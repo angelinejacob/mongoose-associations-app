@@ -72,4 +72,17 @@ router.put('/:albumId/songs/:songId', (req, res) => {
     })
 })
 
+// DELETE SONG
+router.delete('/:albumId/songs/:songId', (req, res) => {
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+
+    Album.findById(albumId, (err, album) => {
+        album.songs.id(songId).remove()
+        album.save((error, album) => {
+            res.redirect(`/albums/${album.id}`)
+        })
+    })
+})
+
 module.exports = router

@@ -11,7 +11,15 @@
 </form>
 <ul>
     <% for( let index = 0; index < album.songs.length; index++ ) { %>
-    <li>  <a href="/albums/<%= album.id %>/songs/<%= album.songs[index].id %>/edit"><%= album.songs[index].title %></a>   </li>
+    <li>  <a href="/albums/<%= album.id %>/songs/<%= album.songs[index].id %>/edit"><%= album.songs[index].title %></a> 
+    
+    <form
+      action="/albums/<%= album.id %>/songs/<%= album.songs[index].id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+    </li>
     <% } %>
 </ul>
  
