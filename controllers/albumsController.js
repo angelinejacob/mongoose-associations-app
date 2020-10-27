@@ -85,4 +85,12 @@ router.delete('/:albumId/songs/:songId', (req, res) => {
     })
 })
 
+// DELETE USER
+router.delete('/:albumId', (req, res) => {
+    Album.findByIdAndRemove(req.params.albumId, (error, album) => {
+        if (error) res.send(error)
+        res.redirect('/albums')
+    })
+})
+
 module.exports = router
