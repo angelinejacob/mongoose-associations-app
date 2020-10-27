@@ -45,17 +45,31 @@ router.post('/:albumId/songs', (req, res) =>{
     })
 })
 
-// EDIT SONG
+// GET FORM TO EDIT SONG
 router.get('/:albumId/songs/:songId/edit', (req, res) => {
     Album.findById(req.params.albumId, (error, album) => {
         if (error) res.send(error)
         const song = album.songs.id(req.params.songId)
-        res.render('songs/edit.js', {
-            albumn,
+        res.render('songs/edit.ejs', {
+            album,
             song,
         })
     })    
 })
 
+// PUT ROUTE FOR SONG - EDIT SONG  
+router.put('/:albumId/songs/:songId', (req, res) => {
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+
+    Album.findById(albumId, (error, album) => {
+        if (error) res.send(error)
+        const song = album.songs.id(songId)
+        song.title = req.body.title
+        album.save((error, album) => {
+            res.redirect(`/albums/${albumId}`)
+        })
+    })
+})
 
 module.exports = router
