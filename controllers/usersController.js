@@ -2,6 +2,15 @@ const router = require('express').Router();
 const User = require('../models/user').User;
 const Tweet = require('../models/user').Tweet;
 
+// USER INDEX ROUTE
+router.get('/', (req, res) => {
+    User.find({}, (error, allUsers) => {
+        res.render('users/index.ejs', {
+            users: allUsers,
+        })
+    })
+})
+
 // NEW USER FORM
 router.get('/new', (req, res) => {
   res.render('users/new.ejs');
@@ -67,7 +76,7 @@ router.post('/:userId/tweets', (req, res) => {
       });
     });
   });
-  
+
   router.delete('/:userId/tweets/:tweetId', (req, res) => {
     console.log('DELETE TWEET');
     // set the value of the user and tweet ids
@@ -83,5 +92,14 @@ router.post('/:userId/tweets', (req, res) => {
       });
     });
   });
+
+  router.delete('/:userId', (req, res) => {
+    User.findByIdAndRemove(req.params.userId, (error, user) => {
+        if (error) res.send(error)
+        console.log('User deleted', user)
+        res.send(user)
+    })
+})
+
 
 module.exports = router;
